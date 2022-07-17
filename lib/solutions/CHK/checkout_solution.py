@@ -44,7 +44,7 @@ def checkout(skus):
     
     # treat empty sku string as non-invalid
     if len(skus) == 0:
-        return INVALID_SKUS_RETURN_VALUE
+        return EMPTY_SKUS_RETURN_VALUE
     
     # convert to all uppercase - this may need to change if we want to ignore lowercase chars
     # also remove all whitespace

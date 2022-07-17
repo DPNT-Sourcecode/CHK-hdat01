@@ -21,6 +21,3 @@ class TestCHK():
     
     def test_lower_case_string_returns_as_invalid_value(self):
         assert checkout("a") == INVALID_SKUS_RETURN_VALUE
-    
-    def test_mix_of_cases_summed_correctly(self):
-        assert checkout("AaAbCD") == 195
