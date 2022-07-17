@@ -235,7 +235,7 @@ def checkout(skus):
         
         # need to prioritise the highest value product
         ordered_products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
-        
+        print(len(ordered_products))
         
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
         
@@ -248,9 +248,11 @@ def checkout(skus):
 
         filtered_skus = final_skus
         for i in range(0, number_to_remove):
+            print(i)
             prod_filtered = []
             for product in ordered_products:
                 for sku in filtered_skus:
+                    print(product.sku, sku)
                     if sku != product.sku:
                         prod_filtered.append(sku)
             filtered_skus = prod_filtered
