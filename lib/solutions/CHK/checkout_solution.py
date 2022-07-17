@@ -14,6 +14,7 @@ PRODUCT_B = "B"
 PRODUCT_C = "C"
 PRODUCT_D = "D"
 PRODUCT_E = "E"
+PRODUCT_F = "F"
 
 
 class OfferType(Enum):
@@ -49,6 +50,8 @@ class Product:
         self.price = price
         for offer in offers:
             offer._product = self
+            if offer.target_product == self.sku:
+                offer.threshold += 1
         self.offers = offers
     
     def get_offers(self) -> List[Offer]:
@@ -81,11 +84,15 @@ class ProductsStore:
         product_e_offers = [
             Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_B),
         ]
+        product_f_offers = [
+            Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_F),
+        ]
         product_a = Product(sku=PRODUCT_A, price=50, offers=product_a_offers)
         product_b = Product(sku=PRODUCT_B, price=30, offers=product_b_offers)
         product_c = Product(sku=PRODUCT_C, price=20)
         product_d = Product(sku=PRODUCT_D, price=15)
         product_e = Product(sku=PRODUCT_E, price=40, offers=product_e_offers)
+        product_f = Product(sku=PRODUCT_E, price=40, offers=product_f_offers)
 
         products = [
             product_a,
@@ -93,6 +100,7 @@ class ProductsStore:
             product_c,
             product_d,
             product_e,
+            product_f,
         ]
         self.products = {product.sku: product for product in products}
 
