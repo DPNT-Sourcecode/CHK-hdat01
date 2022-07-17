@@ -136,6 +136,25 @@ DATA_TO_IMPORT = {
 class ProductsStore:
 
     def __init__(self, product_data: dict):
+        # product_a_offers = [
+        #     Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130),
+        #     Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200),
+        # ]
+        # product_b_offers = [
+        #     Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=45),
+        # ]
+        # product_e_offers = [
+        #     Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_B),
+        # ]
+        # product_f_offers = [
+        #     Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_F),
+        # ]
+        # product_a = Product(sku=PRODUCT_A, price=50, offers=product_a_offers)
+        # product_b = Product(sku=PRODUCT_B, price=30, offers=product_b_offers)
+        # product_c = Product(sku=PRODUCT_C, price=20)
+        # product_d = Product(sku=PRODUCT_D, price=15)
+        # product_e = Product(sku=PRODUCT_E, price=40, offers=product_e_offers)
+        # product_f = Product(sku=PRODUCT_F, price=10, offers=product_f_offers)
 
         products = []
         for sku, data in product_data.items():
@@ -204,6 +223,7 @@ def checkout(skus):
     # firstly apply any free product offers
     final_skus = split_skus
     for offer in products_store.get_all_free_product_offers():
+        print(offer._product.sku)
         
         product_count = final_skus.count(offer._product.sku)
 
@@ -211,6 +231,7 @@ def checkout(skus):
             continue
         
         num_to_remove, remainder = divmod(product_count, offer.threshold)
+        print(offer._product.sku, offer.target_product,offer.threshold, num_to_remove, product_count)
 
         if num_to_remove == 0:
             continue
@@ -228,6 +249,7 @@ def checkout(skus):
 
         final_skus = filtered_skus
 
+    print(final_skus)
     amount = 0
     for product_sku, product in products_store.products.items():
 
@@ -256,7 +278,3 @@ def checkout(skus):
 
     return amount
     
-
-
-
-
