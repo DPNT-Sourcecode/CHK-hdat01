@@ -37,6 +37,3 @@ class TestCHK():
     def test_free_product_offer_applied_successfully_with_other_offers_multiple_instances_of_offer_target(self):
         assert checkout("CCADDEEBBA") == 280
 
-
-
-

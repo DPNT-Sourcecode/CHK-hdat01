@@ -153,7 +153,6 @@ def checkout(skus):
     # could maybe look up the data we need first, then perform calculations
 
     # firstly apply any free product offers
-
     final_skus = split_skus
     for offer in products_store.get_all_free_product_offers():
         
@@ -175,9 +174,11 @@ def checkout(skus):
             elif removed != num_to_remove:
                 removed += 1
                 continue
+            else:
+                filtered_skus.append(sku)
+
         final_skus = filtered_skus
 
-    print(final_skus)
     amount = 0
     for product_sku, product in products_store.products.items():
 
@@ -206,9 +207,3 @@ def checkout(skus):
 
     return amount
     
-
-
-
-
-
-
