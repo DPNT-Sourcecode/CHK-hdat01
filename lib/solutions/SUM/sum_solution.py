@@ -25,5 +25,3 @@ def compute(x, y):
     
     # return integer
     return x + y
-
-
