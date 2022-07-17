@@ -235,7 +235,6 @@ def checkout(skus):
         
         # need to prioritise the highest value product
         ordered_products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
-        print(len(ordered_products))
         
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
         
@@ -257,53 +256,10 @@ def checkout(skus):
             elif current_removal_count:
                 removal_counts[sku] -= 1
 
-        print(filtered)
-
-
-
-        # filtered_skus = final_skus
-        # for i in range(0, number_to_remove):
-        #     print(i)
-        #     prod_filtered = []
-        #     for product in ordered_products:
-        #         for sku in filtered_skus:
-        #             print(product.sku, sku)
-        #             if sku != product.sku:
-        #                 prod_filtered.append(sku)
-        #     filtered_skus = prod_filtered
-                        
-        # for product in ordered_products:
-        #     filtered_for_product = []
-        #     num_removed = 0
-        #     while num_removed != number_to_remove:
-        #         print(num_removed, number_to_remove)
-        #         for sku in filtered_skus:
-        #             if sku == product.sku:
-        #                 num_removed += 1
-        #                 continue
-        #             filtered_for_product.append(sku)
-
-
-            # prod_filter = []
-            # num_removed = 0
-            # while num_removed != number_to_remove:
-            #     for sku in filtered_skus:
-            #         if sku == product.sku:
-            #             num_removed += 1
-            #         else:
-            #             prod_filter.append(sku)
-            # for i in range(0, number_to_remove):
-            #     for sku in filtered_skus:
-            #         if sku != product.sku:
-            #             prod_filter.append(sku)
-
-        # filtered_skus = prod_filtered
-        
         amount += number_to_remove * offer.amount
 
-        final_skus = filtered_skus
+        final_skus = filtered
 
-    print(final_skus)
     # lastly apply multibuy offers
     for product_sku, product in products_store.products.items():
 
