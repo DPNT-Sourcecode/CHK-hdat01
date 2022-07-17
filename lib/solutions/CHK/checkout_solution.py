@@ -71,6 +71,42 @@ def _find_delimiter(skus):
     return found_delimiter
 
 
+DATA_TO_IMPORT = {
+    "A": {
+        "price": 50,
+        "offers": [
+            Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130),
+            Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200),
+        ]
+    },
+    "B": {"price": 30, "offers": []},
+    "C": {"price": 20, "offers": []},
+    "D": {"price": 15, "offers": []},
+    "E": {"price": 40, "offers": []},
+    "F": {"price": 10, "offers": []},
+    "G": {"price": 20, "offers": []},
+    "H": {"price": 10, "offers": []},
+    "I": {"price": 35, "offers": []},
+    "J": {"price": 60, "offers": []},
+    "K": {"price": 80, "offers": []},
+    "L": {"price": 90, "offers": []},
+    "M": {"price": 15, "offers": []},
+    "N": {"price": 40, "offers": []},
+    "O": {"price": 10, "offers": []},
+    "P": {"price": 50, "offers": []},
+    "Q": {"price": 30, "offers": []},
+    "R": {"price": 50, "offers": []},
+    "S": {"price": 30, "offers": []},
+    "T": {"price": 20, "offers": []},
+    "U": {"price": 40, "offers": []},
+    "V": {"price": 50, "offers": []},
+    "W": {"price": 20, "offers": []},
+    "X": {"price": 90, "offers": []},
+    "Y": {"price": 10, "offers": []},
+    "Z": {"price": 50, "offers": []},
+}
+
+
 class ProductsStore:
 
     def __init__(self):
@@ -215,4 +251,5 @@ def checkout(skus):
 
     return amount
     
+
 
