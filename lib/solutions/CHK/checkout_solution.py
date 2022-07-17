@@ -229,6 +229,7 @@ def checkout(skus):
     amount = 0
     
     final_skus = skus_free_products_applied
+
     # secondly apply group buy offers
     for offer in products_store.group_buy_offers:
         product_group = offer.target_products
@@ -287,3 +288,4 @@ def checkout(skus):
 
     return amount
     
+
