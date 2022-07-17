@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List
+from typing import List, final
 
 
 INVALID_SKUS_RETURN_VALUE = -1
@@ -232,12 +232,22 @@ def checkout(skus):
     for offer in products_store.group_buy_offers:
         product_group = offer.target_products
         
-        counts = {sku: final_skus.count(sku) for sku in product_group}
-        if not all(counts.values()):
-            continue
+        # need to prioritise the highest value product
+        products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
+        
+        # matches = min([final_skus.count(sku) for sku in product_group])
+        # if not matches:
+        #     continue
+
+        
+        sku_counts = {sku: final_skus.count(sku) for sku in product_group}
+
+        lowest_common_occurences = min(sku_counts, key=sku_counts.get)
+
         
 
 
+        
 
 
     # lastly apply multibuy offers
@@ -268,3 +278,4 @@ def checkout(skus):
 
     return amount
     
+
