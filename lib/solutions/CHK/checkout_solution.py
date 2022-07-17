@@ -239,29 +239,27 @@ def checkout(skus):
         if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold and not any([value >= offer.threshold for value in sku_counts.values()]):
             continue
 
-        print(final_skus)
-        print(sku_counts)
+        sku_count_filtered = {key: value for key, value in sku_counts.items() if value > 0}
+        lowest_common_occurences = min(sku_count_filtered, key=sku_count_filtered.get)
+        number_to_remove = sku_count_filtered.get(lowest_common_occurences)
 
-        # sku_count_filtered = {key: value for key, value in sku_counts.items() if value > 0}
-        # lowest_common_occurences = min(sku_count_filtered, key=sku_count_filtered.get)
-        # number_to_remove = sku_count_filtered.get(lowest_common_occurences)
+        removal_counts = {sku: number_to_remove for sku in sku_count_filtered.keys()}
+        filtered = []
+        for sku in final_skus:
+            current_removal_count = removal_counts.get(sku)
+            if current_removal_count == 0 or not current_removal_count:
+                filtered.append(sku)
+                continue
+            elif current_removal_count:
+                removal_counts[sku] -= 1
 
-        # removal_counts = {sku: number_to_remove for sku in sku_count_filtered.keys()}
-        # filtered = []
-        # for sku in final_skus:
-        #     current_removal_count = removal_counts.get(sku)
-        #     if current_removal_count == 0 or not current_removal_count:
-        #         filtered.append(sku)
-        #         continue
-        #     elif current_removal_count:
-        #         removal_counts[sku] -= 1
+        print(removal_counts.keys(), filtered)
+        if len(removal_counts.keys()) == 1:
+            amount += offer.amount
+        else:
+            amount += number_to_remove * offer.amount
 
-        # if len(removal_counts.keys()) == 1:
-        #     amount += offer.amount
-        # else:
-        #     amount += number_to_remove * offer.amount
-
-        # final_skus = filtered
+        final_skus = filtered
 
     # lastly apply multibuy offers
     for product_sku, product in products_store.products.items():
