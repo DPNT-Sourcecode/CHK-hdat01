@@ -136,7 +136,6 @@ def checkout(skus):
     for product_sku, product in products_store.products.items():
 
         # move onto next product if not present
-        
         if product_sku not in split_skus:
             continue
         
@@ -151,13 +150,13 @@ def checkout(skus):
         offers_expended = False
         remaining_product_count = 0
         for offer in offers:
-          
-            if offer.offer_type == OfferType.MULTI_BUY:
-                # getting repeated here
-                current_count = remaining_product_count if remaining_product_count else product_count
-                match_count, remainder = divmod(current_count, offer.threshold)
-                amount += match_count * offer.amount
-                remaining_product_count = remainder
+            if offers_expended:
+                break
+            current_count = remaining_product_count if remaining_product_count > 0 else product_count
+            match_count, remainder = divmod(current_count, offer.threshold)
+            amount += match_count * offer.amount
+            remaining_product_count = remainder
+            offers_expended = remainder == 0
 
         amount += remaining_product_count * product.price
 
@@ -195,6 +194,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 

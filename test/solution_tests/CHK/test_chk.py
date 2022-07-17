@@ -23,5 +23,9 @@ class TestCHK():
         assert checkout("a") == INVALID_SKUS_RETURN_VALUE
     
     def test_multiple_offers_applied_in_customer_preference(self):
-        assert checkout("AAAAAAAAAA") == 430
+        assert checkout("AAAAAAAA") == 330
+
+    def test_multiple_offers_applied_in_customer_preference(self):
+        assert checkout("AAAAAAAAA") == 380
+
 
