@@ -43,4 +43,8 @@ class TestCHK():
     def test_buy_two_get_one_free_not_applied_if_only_two_in_basket(self):
         assert checkout("FF") == 20
 
+    def test_buy_two_get_one_free_applied_with_existing_offers_successfully(self):
+        assert checkout("FFAAAA") == 200
+
+
 
