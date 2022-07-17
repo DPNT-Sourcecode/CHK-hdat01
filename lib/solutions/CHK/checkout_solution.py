@@ -1,6 +1,8 @@
 from enum import Enum
 from typing import List, final
 
+from numpy import number
+
 
 INVALID_SKUS_RETURN_VALUE = -1
 EMPTY_SKUS_RETURN_VALUE = 0
@@ -251,6 +253,8 @@ def checkout(skus):
         
         for key in removal_counts.keys():
             pass
+
+
 
         # filtered_skus = final_skus
         # for i in range(0, number_to_remove):
