@@ -33,6 +33,3 @@ class TestCHK():
     
     def test_free_product_offer_applied_successfully_with_other_offers(self):
         assert checkout("EEBAAAAAAAAA") == 420
-
-
-

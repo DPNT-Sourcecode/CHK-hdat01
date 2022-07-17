@@ -148,8 +148,15 @@ def checkout(skus):
     # firstly apply any free product offers
 
     for offer in products_store.get_all_free_product_offers():
+        product_count = split_skus.count(offer._product)
+        if not product_count:
+            continue
         
-        pass
+        num_to_remove, remainder = divmod(product_count, offer.threshold)
+        
+        
+        for sku in split_skus:
+
 
     amount = 0
     for product_sku, product in products_store.products.items():
@@ -184,10 +191,3 @@ def checkout(skus):
 
     return amount
     
-
-
-
-
-
-
-
