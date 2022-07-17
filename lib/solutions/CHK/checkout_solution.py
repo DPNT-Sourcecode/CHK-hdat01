@@ -37,7 +37,13 @@ def checkout(skus):
     # find first delimiter, then split on that
     found_delimiter = _find_delimiter(skus)
     split_skus = skus.split(found_delimiter) if found_delimiter else list(skus)
-    split_skus = 
+    
+    # treat any invalid products as an invalid string - may need to change later
+    contains_invalid_product = any([sku for sku in skus if sku not in PRICING.keys()])
+
+    if contains_invalid_product:
+        return INVALID_SKUS_RETURN_VALUE
+
 
 
 
