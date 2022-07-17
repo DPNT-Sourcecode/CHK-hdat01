@@ -81,7 +81,7 @@ def checkout(skus):
             continue
         
         total_offer_amount = matching_offer_count * offer_amount
-        remaining_amount = (matching_offer_count % offer_amount) * product_price
+        remaining_amount = (product_count % offer_threshold) * product_price
         print(matching_offer_count % offer_amount)
         print(total_offer_amount)
         print(remaining_amount)
