@@ -228,12 +228,13 @@ def checkout(skus):
     
     amount = 0
     
+    skus = filtered_skus
     # secondly apply group buy offers
     for offer in products_store.group_buy_offers:
         product_group = offer.target_products
         
         # need to prioritise the highest value product
-        products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
+        ordered_products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
         
         # matches = min([final_skus.count(sku) for sku in product_group])
         # if not matches:
@@ -242,12 +243,14 @@ def checkout(skus):
         
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
 
+        filtered_skus = []
         lowest_common_occurences = min(sku_counts, key=sku_counts.get)
-
-        
-
-
-        
+        for i in range(0, lowest_common_occurences):
+            for product in ordered_products:
+                for sku in final_skus:
+                    if sku not in product_group:
+                        filtered_skus.append(sku)
+        skus = filtered_skus
 
 
     # lastly apply multibuy offers
@@ -278,4 +281,5 @@ def checkout(skus):
 
     return amount
     
+
 
