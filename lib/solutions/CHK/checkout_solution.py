@@ -1,3 +1,6 @@
+from posixpath import split
+
+
 INVALID_SKUS_RETURN_VALUE = -1
 ACCEPTED_DELIMITERS = [",", "|"]
 
@@ -57,11 +60,27 @@ def checkout(skus):
 
 
     # NOTE: this works for small product lists, but if there were 10000000s of products this would need to change
+    # could maybe look up the data we need first, then perform calculations
     amount = 0
     for product, product_data in PRICING.items():
+        if product not in split_skus:
+            continue
+        
         offer_threshold = product_data.get("offer_threshold")
+        product_count = split_skus.count(product)
+        
         if not offer_threshold:
-            amount += split_skus.count(product) * product_data.get("price")
+            amount += product_count * product_data.get("price")
+            continue
+        
+        
+        matching_offer_count = product_count // offer_threshold
+        if matching_offer_count == 0:
+            amount += product_count * product_data.get("price")
+            continue
+
+
+        
         
 
 
