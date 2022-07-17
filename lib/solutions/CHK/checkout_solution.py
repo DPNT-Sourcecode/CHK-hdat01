@@ -244,19 +244,20 @@ def checkout(skus):
         
         sku_count_filtered = {key: value for key, value in sku_counts.items() if value > 0}
         lowest_common_occurences = min(sku_count_filtered, key=sku_count_filtered.get)
+        number_to_remove = sku_count_filtered.get(lowest_common_occurences)
 
         # ----- fix
-        filtered_skus = []
-        for i in range(0, sku_count_filtered.get(lowest_common_occurences)):
-            print(i)
-            for product in ordered_products:
-                for sku in final_skus:
-                    if product.sku != sku:
-                        filtered_skus.append(sku)
-            # for product in ordered_products:
-            #     for sku in final_skus:
-            #         if sku not in product_group:
-            #             filtered_skus.append(sku)
+        filtered_skus = final_skus
+        for product in ordered_products:
+            prod_filter = []
+            for i in range(0, number_to_remove):
+                for sku in filtered_skus:
+                    if sku != product.sku:
+                        prod_filter.append(sku)
+            filtered_skus = prod_filter
+        
+        amount += number_to_remove * offer.amount
+
         final_skus = filtered_skus
 
     print(final_skus)
@@ -288,5 +289,6 @@ def checkout(skus):
 
     return amount
     
+
 
 
