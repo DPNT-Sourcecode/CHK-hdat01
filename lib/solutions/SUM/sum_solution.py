@@ -13,8 +13,17 @@ def _in_acceptable_range(value) -> bool:
 
 def compute(x, y):
 
+    # validate input params
     if not isinstance(x, int) or not isinstance(y, int):
-        raise ValueError("Only integers are allowed in compute function.")
+        raise TypeError("Only integers are allowed in compute function.")
     
-    raise NotImplementedError()
+    if not _in_acceptable_range(x):
+        raise ValueError(f"param x must be between {MIN_ALLOWED_VALUE} and {MAX_ALLOWED_VALUE} inclusive.")
+    
+    if not _in_acceptable_range(y):
+        raise ValueError(f"param y must be between {MIN_ALLOWED_VALUE} and {MAX_ALLOWED_VALUE} inclusive.")
+    
+    # return integer
+    return x + y
+
 
