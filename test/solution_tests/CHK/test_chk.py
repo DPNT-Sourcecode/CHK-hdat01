@@ -15,5 +15,3 @@ class TestCHK():
     
     def test_product_a_offer_applied_correctly(self):
         assert checkout("AAAAABCD") == 295
-
-

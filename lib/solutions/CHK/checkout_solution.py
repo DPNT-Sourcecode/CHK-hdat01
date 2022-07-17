@@ -55,14 +55,15 @@ def checkout(skus):
     if contains_invalid_product:
         return INVALID_SKUS_RETURN_VALUE
 
-    # product_a_count = split_skus.count(PRODUCT_A)
-    # if product_a_count >= PRODUCT_A_OFFER_THRESHOLD:
+
+    # NOTE: this works for small product lists, but if there were 10000000s of products this would need to change
+    amount = 0
+    for product, product_data in PRICING.items():
+        offer_threshold = product_data.get("offer_threshold")
+        if not offer_threshold:
+            amount += split_skus.count(product) * product_data.get("price")
+        
 
 
-    return sum([PRICING.get(sku) for sku in split_skus])
+    return amount
     
-
-
-
-
-
