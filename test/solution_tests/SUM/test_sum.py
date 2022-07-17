@@ -6,20 +6,53 @@ class TestSum():
         assert compute(1, 2) == 3
     
     def test_x_is_not_integer_raises_typeerror(self):
-        with pytest.raises(TypeError, match="Only integers are allowed in compute function."):
+        raised = False
+        try:
             compute(14.7, 1)
+        except TypeError:
+            raised = True
+        assert raised is True
     
     def test_y_is_no_ingeger_raises_typeerror(self):
-        with pytest.raises(TypeError, match="Only integers are allowed in compute function."):
-            compute(1, 14.7)
+        raised = False
+        try:
+            compute(14, 1.4)
+        except TypeError:
+            raised = True
+        assert raised is True
 
     def test_x_is_less_than_min_allowed_value_raises_valueerror(self):
-        with pytest.raises(TypeError, match=f"param x must be between {MIN_ALLOWED_VALUE} and {MAX_ALLOWED_VALUE} inclusive."):
+        raised = False
+        try:
             compute(-1, 14)
+        except ValueError:
+            raised = True
+        assert raised is True
 
     def test_y_is_less_than_min_allowed_value_raises_valueerror(self):
-        with pytest.raises(TypeError, match=f"param y must be between {MIN_ALLOWED_VALUE} and {MAX_ALLOWED_VALUE} inclusive."):
-            compute(14, -1)
+        raised = False
+        try:
+            compute(1, -14)
+        except ValueError:
+            raised = True
+        assert raised is True
+
+    def test_x_is_greater_than_max_allowed_value_raises_valueerror(self):
+        raised = False
+        try:
+            compute(150, 14)
+        except ValueError:
+            raised = True
+        assert raised is True
+
+    def test_y_is_greater_than_max_allowed_value_raises_valueerror(self):
+        raised = False
+        try:
+            compute(1, 150)
+        except ValueError:
+            raised = True
+        assert raised is True
+
 
 
 
