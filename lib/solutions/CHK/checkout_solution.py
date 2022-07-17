@@ -1,7 +1,5 @@
-
-
 INVALID_SKUS_RETURN_VALUE = -1
-
+ACCEPTED_DELIMITERS = [",", "|"]
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -14,4 +12,14 @@ def checkout(skus):
     if not isinstance(skus, str):
         return INVALID_SKUS_RETURN_VALUE
     
+    # attempt to split on delimiters: find first delimiter, then split on that
+    found_delimiter = None
+    for delimiter in ACCEPTED_DELIMITERS:
+        if delimiter in skus:
+            found_delimiter = delimiter
+            break
+
+    if found_delimiter:
+        split_skus = skus.split(delimiter)
+
 
