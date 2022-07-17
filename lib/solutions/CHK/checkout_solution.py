@@ -50,7 +50,7 @@ class Offer:
         self.amount = amount
         self.target_product = target_product
 
-        self._product = None
+        self._product_sku = None
     
     @property
     def is_multibuy(self) -> bool:
@@ -60,6 +60,11 @@ class Offer:
     def is_free_product(self) -> bool:
         return self.offer_type == OfferType.FREE_PRODUCT
 
+    def set_product(self, product_sku):
+        if product_sku == self.target_product:
+            self.threshold += 1
+        self._product_sku = product_sku
+
 
 class Product:
 
@@ -67,11 +72,7 @@ class Product:
         self.sku = sku
         self.price = price
         for offer in offers:
-            if not offer.is_free_product:
-                continue
-            offer._product = self
-            if offer.target_product == self.sku:
-                offer.threshold += 1
+            offer.set_product(self.sku)
         self.offers = offers
     
     def get_offers(self) -> List[Offer]:
@@ -225,7 +226,7 @@ def checkout(skus):
     # firstly apply any free product offers
     final_skus = split_skus
     for offer in products_store.get_all_free_product_offers():
-        print(offer._product.sku)
+        print(offer._product.sku, offer.threshold, offer.offer_type.value)
         
         product_count = final_skus.count(offer._product.sku)
 
@@ -233,7 +234,7 @@ def checkout(skus):
             continue
         
         num_to_remove, remainder = divmod(product_count, offer.threshold)
-        print(offer._product.sku, offer.target_product,offer.threshold, num_to_remove, product_count)
+        print(offer._product_sku, offer.target_product,offer.threshold, num_to_remove, product_count)
 
         if num_to_remove == 0:
             continue
@@ -280,3 +281,4 @@ def checkout(skus):
 
     return amount
     
+
