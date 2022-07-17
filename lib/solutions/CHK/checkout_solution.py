@@ -108,6 +108,13 @@ class ProductsStore:
                     offers.append(offer)
         return offers
 
+    def get_all_multibuy_offers(self) -> List[Offer]:
+        offers = []
+        for product in self.products.values():
+            for offer in product.get_offers():
+                if offer.is_multibuy:
+                    offers.append(offer)
+        return offers
 
 
 # noinspection PyUnusedLocal
@@ -167,6 +174,7 @@ def checkout(skus):
                 continue
         final_skus = filtered_skus
 
+    print(final_skus)
     amount = 0
     for product_sku, product in products_store.products.items():
 
@@ -175,15 +183,13 @@ def checkout(skus):
         if not product_count:
             continue
 
-        offers = product.get_offers()
+        offers = [offer for offer in product.get_offers() if offer.is_multibuy]
         if not offers:
             amount += product_count * product.price
         
         offers_expended = False
         remaining_product_count = 0
         for offer in offers:
-            if offer.offer_type != OfferType.MULTI_BUY:
-                continue
             if offers_expended:
                 break
             current_count = remaining_product_count if remaining_product_count > 0 else product_count
@@ -197,4 +203,5 @@ def checkout(skus):
 
     return amount
     
+
 
