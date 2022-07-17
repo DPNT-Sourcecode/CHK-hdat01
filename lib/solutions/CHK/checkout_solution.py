@@ -1,6 +1,13 @@
 INVALID_SKUS_RETURN_VALUE = -1
 ACCEPTED_DELIMITERS = [",", "|"]
 
+PRICING = {
+    "A": 50,
+    "B": 30,
+    "C": 20,
+    "D": 15,
+}
+
 def _find_delimiter(skus):
     # TODO: refactor
     found_delimiter = None
@@ -24,10 +31,13 @@ def checkout(skus):
     if len(skus) == 0:
         return INVALID_SKUS_RETURN_VALUE
     
+    # convert to all uppercase - this may need to change if we want to ignore lowercase chars
+    skus = skus.upper()
+    
     # find first delimiter, then split on that
     found_delimiter = _find_delimiter(skus)
     split_skus = skus.split(found_delimiter) if found_delimiter else list(skus)
-    
+    split_skus = 
 
 
 
