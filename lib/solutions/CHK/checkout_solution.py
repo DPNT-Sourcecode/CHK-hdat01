@@ -237,7 +237,9 @@ def checkout(skus):
         ordered_products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
         
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
+        print(sku_counts)
         
+        print([key for key in sku_counts if sku_counts[key]])
         if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold:
             continue
         
