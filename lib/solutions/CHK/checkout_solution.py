@@ -239,22 +239,23 @@ def checkout(skus):
         
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
         
-        print(sku_counts)
         if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold:
             continue
+        
+        sku_count_filtered = {key: value for key, value in sku_counts.items() if value > 0}
+        lowest_common_occurences = min(sku_count_filtered, key=sku_count_filtered.get)
 
+        # ----- fix
         filtered_skus = []
-
-        lowest_common_occurences = min(sku_counts, key=sku_counts.get)
-
-        for i in range(0, sku_counts.get(lowest_common_occurences)):
+        for i in range(0, sku_count_filtered.get(lowest_common_occurences)):
             for product in ordered_products:
+
                 for sku in final_skus:
                     if sku not in product_group:
                         filtered_skus.append(sku)
         final_skus = filtered_skus
 
-
+    print(final_skus)
     # lastly apply multibuy offers
     for product_sku, product in products_store.products.items():
 
@@ -283,3 +284,4 @@ def checkout(skus):
 
     return amount
     
+
