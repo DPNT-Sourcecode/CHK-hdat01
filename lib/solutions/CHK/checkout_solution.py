@@ -1,6 +1,15 @@
 INVALID_SKUS_RETURN_VALUE = -1
 ACCEPTED_DELIMITERS = [",", "|"]
 
+def _find_delimiter(skus):
+    # TODO: refactor
+    found_delimiter = None
+    for delimiter in ACCEPTED_DELIMITERS:
+        if delimiter in skus:
+            found_delimiter = delimiter
+            break
+    return found_delimiter
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -12,14 +21,14 @@ def checkout(skus):
     if not isinstance(skus, str):
         return INVALID_SKUS_RETURN_VALUE
     
-    # attempt to split on delimiters: find first delimiter, then split on that
-    found_delimiter = None
-    for delimiter in ACCEPTED_DELIMITERS:
-        if delimiter in skus:
-            found_delimiter = delimiter
-            break
+    if len(skus) == 0:
+        return INVALID_SKUS_RETURN_VALUE
+    
+    # find first delimiter, then split on that
+    found_delimiter = _find_delimiter(skus)
+    split_skus = skus.split(found_delimiter) if found_delimiter else list(skus)
+    
 
-    if found_delimiter:
-        split_skus = skus.split(delimiter)
+
 
 
