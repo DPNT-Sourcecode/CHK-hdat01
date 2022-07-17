@@ -123,7 +123,7 @@ def checkout(skus):
     split_skus = skus.split(found_delimiter) if found_delimiter else list(skus)
     
     # treat any invalid products as an invalid string - may need to change later
-    contains_invalid_product = any([sku for sku in split_skus if sku not in PRICING.keys()])
+    contains_invalid_product = any([sku for sku in split_skus if sku not in products_store.get_all_product_skus()])
 
     if contains_invalid_product:
         return INVALID_SKUS_RETURN_VALUE
@@ -132,12 +132,21 @@ def checkout(skus):
     # NOTE: this works for small product lists, but if there were 10000000s of products this would need to change
     # could maybe look up the data we need first, then perform calculations
     amount = 0
-    for product_sku, product in products_store.products:
+    for product_sku, product in products_store.products.items():
 
         # move onto next product if not present
+        
         if product_sku not in split_skus:
             continue
         
+        offers = product.get_offers()
+        
+        print(product_sku, offers)
+
+        if not offers:
+            amount += product_count * product.price
+            continue
+
         for offer in product.get_offers():
             if offer.offer_type == OfferType.MULTI_BUY:
             
@@ -146,22 +155,17 @@ def checkout(skus):
                 product_count = split_skus.count(product)
                 product_price = product.price
                 
-        # if no offer, just add normally
-        if not offer_threshold:
-            amount += product_count * product_price
-            continue
-        
-        # get number of times offer is applicable, if never over threshold, just add normally
-        matching_offer_count = product_count // offer_threshold
-        if matching_offer_count == 0:
-            amount += product_count * product_price
-            continue
-        
-        # calculate total matching offers and add remaining amounts normally
-        offer_amount = product_data.get("offer_amount")
-        total_offer_amount = matching_offer_count * offer_amount
-        remaining_amount = (product_count % offer_threshold) * product_price
-        amount += (total_offer_amount + remaining_amount)
+                # get number of times offer is applicable, if never over threshold, just add normally
+                matching_offer_count = product_count // offer_threshold
+                if matching_offer_count == 0:
+                    amount += product_count * product_price
+                    continue
+                
+                # calculate total matching offers and add remaining amounts normally
+                offer_amount = offer.amount
+                total_offer_amount = matching_offer_count * offer_amount
+                remaining_amount = (product_count % offer_threshold) * product_price
+                amount += (total_offer_amount + remaining_amount)
 
     return amount
     
