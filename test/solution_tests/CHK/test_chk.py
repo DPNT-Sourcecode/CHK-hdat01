@@ -24,4 +24,3 @@ class TestCHK():
     
     def test_multiple_offers_applied_in_customer_preference(self):
         assert checkout("AAAAAAAAAA") == 430
-
