@@ -62,3 +62,7 @@ class TestCHK():
     
     def test_many_instance_of_same_group_buy_element(self):
         assert checkout("SSS") == 45
+    
+    def test_SSSZ(self):
+        print('------')
+        assert checkout("SSSZ") == 65
