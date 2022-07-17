@@ -239,6 +239,7 @@ def checkout(skus):
         if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold and not any([value >= offer.threshold for value in sku_counts.values()]):
             continue
 
+        print(final_skus)
         print(sku_counts)
 
         # sku_count_filtered = {key: value for key, value in sku_counts.items() if value > 0}
@@ -290,4 +291,5 @@ def checkout(skus):
 
     return amount
     
+
 
