@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, final
+from typing import List
 
 
 INVALID_SKUS_RETURN_VALUE = -1
@@ -129,11 +129,11 @@ class ProductsStore:
 def checkout(skus):
 
     DEFAULT_GROUP_BUY_TARGETS = [
-        PRODUCT_S
-        PRODUCT_T
-        PRODUCT_X
-        PRODUCT_Y
-        PRODUCT_Z
+        PRODUCT_S,
+        PRODUCT_T,
+        PRODUCT_X,
+        PRODUCT_Y,
+        PRODUCT_Z,
     ]
 
     group_buy_offer = Offer(offer_type=OfferType.GROUP_BUY, threshold=3, amount=45, target_products=DEFAULT_GROUP_BUY_TARGETS)
@@ -169,7 +169,7 @@ def checkout(skus):
     }
 
     # set up products
-    products_store = ProductsStore(DATA_TO_IMPORT, group_buy_offers=group_buy_offer)
+    products_store = ProductsStore(DATA_TO_IMPORT, group_buy_offers=[group_buy_offer])
     
     # we don't currently know how SKUs will be split, or if there will be a delimiter at all
     
@@ -200,10 +200,10 @@ def checkout(skus):
     # could maybe look up the data we need first, then perform calculations
 
     # firstly apply any free product offers
-    final_skus = split_skus
+    skus_free_products_applied = split_skus
     for offer in products_store.get_all_free_product_offers():
         
-        product_count = final_skus.count(offer._product_sku)
+        product_count = skus_free_products_applied.count(offer._product_sku)
 
         if not product_count:
             continue
@@ -215,7 +215,7 @@ def checkout(skus):
         
         removed = 0
         filtered_skus = []
-        for sku in final_skus:
+        for sku in skus_free_products_applied:
             if sku not in offer.target_products:
                 filtered_skus.append(sku)
             elif removed != num_to_remove:
@@ -224,11 +224,11 @@ def checkout(skus):
             else:
                 filtered_skus.append(sku)
 
-        final_skus = filtered_skus
+        skus_free_products_applied = filtered_skus
     
     amount = 0
     
-    skus = filtered_skus
+    final_skus = skus_free_products_applied
     # secondly apply group buy offers
     for offer in products_store.group_buy_offers:
         product_group = offer.target_products
@@ -245,12 +245,12 @@ def checkout(skus):
 
         filtered_skus = []
         lowest_common_occurences = min(sku_counts, key=sku_counts.get)
-        for i in range(0, lowest_common_occurences):
+        for i in range(0, sku_counts.get(lowest_common_occurences)):
             for product in ordered_products:
                 for sku in final_skus:
                     if sku not in product_group:
                         filtered_skus.append(sku)
-        skus = filtered_skus
+        final_skus = filtered_skus
 
 
     # lastly apply multibuy offers
@@ -281,5 +281,6 @@ def checkout(skus):
 
     return amount
     
+
 
 
