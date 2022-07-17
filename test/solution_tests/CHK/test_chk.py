@@ -25,7 +25,14 @@ class TestCHK():
     def test_multiple_offers_applied_in_customer_preference(self):
         assert checkout("AAAAAAAA") == 330
 
-    def test_multiple_offers_applied_in_customer_preference(self):
+    def test_multiple_offers_applied_in_customer_preference_with_remainder(self):
         assert checkout("AAAAAAAAA") == 380
+    
+    def test_free_product_offer_applied_successfully(self):
+        assert checkout("EEB") == 80
+    
+    def test_free_product_offer_applied_successfully_with_other_offers(self):
+        assert checkout("EEBAAAAAAAAA") == 420
+
 
 

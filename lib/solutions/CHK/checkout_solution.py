@@ -150,6 +150,8 @@ def checkout(skus):
         offers_expended = False
         remaining_product_count = 0
         for offer in offers:
+            if offer.offer_type != OfferType.MULTI_BUY:
+                continue
             if offers_expended:
                 break
             current_count = remaining_product_count if remaining_product_count > 0 else product_count
@@ -161,39 +163,9 @@ def checkout(skus):
         amount += remaining_product_count * product.price
 
 
-
-
-
-        # if not offers or not any([product_count < offer.threshold for offer in product.get_offers()]):
-        #     amount += product_count * product.price
-
-        # if no offers just add as normal (TODO: handle when 2E => free B)
-        # if not offers:
-        #     amount += product_count * product.price
-        #     continue
-
-        
-        # for offer in product.get_offers():
-        #     if offer.offer_type == OfferType.MULTI_BUY:
-            
-        #         # get product data
-        #         offer_threshold = offer.threshold
-        #         product_price = product.price
-                
-        #         # get number of times offer is applicable, if never over threshold, just add normally
-        #         matching_offer_count = product_count // offer_threshold
-        #         if matching_offer_count == 0:
-        #             amount += product_count * product_price
-        #             continue
-
-        #         # calculate total matching offers and add remaining amounts normally
-        #         offer_amount = offer.amount
-        #         total_offer_amount = matching_offer_count * offer_amount
-        #         remaining_amount = (product_count % offer_threshold) * product_price
-        #         amount += (total_offer_amount + remaining_amount)
-
     return amount
     
+
 
 
 
