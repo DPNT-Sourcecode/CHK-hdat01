@@ -237,18 +237,16 @@ def checkout(skus):
         ordered_products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
         
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
-        print(sku_counts)
-        
-        print([key for key in sku_counts if sku_counts[key]])
-        print([value >= offer.threshold for value in sku_counts.values()])
+
         if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold and not any([value >= offer.threshold for value in sku_counts.values()]):
             continue
-        print("HERE")
+
         sku_count_filtered = {key: value for key, value in sku_counts.items() if value > 0}
         lowest_common_occurences = min(sku_count_filtered, key=sku_count_filtered.get)
         number_to_remove = sku_count_filtered.get(lowest_common_occurences)
 
         removal_counts = {sku: number_to_remove for sku in sku_count_filtered.keys()}
+        print(removal_counts)
 
         filtered = []
         for sku in final_skus:
@@ -258,10 +256,12 @@ def checkout(skus):
                 continue
             elif current_removal_count:
                 removal_counts[sku] -= 1
+            print(filtered)
 
         amount += number_to_remove * offer.amount
 
         final_skus = filtered
+        print(final_skus)
 
     # lastly apply multibuy offers
     for product_sku, product in products_store.products.items():
