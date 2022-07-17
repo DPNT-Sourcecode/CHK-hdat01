@@ -246,7 +246,6 @@ def checkout(skus):
         lowest_common_occurences = min(sku_count_filtered, key=sku_count_filtered.get)
         number_to_remove = sku_count_filtered.get(lowest_common_occurences)
 
-        # ----- fix
         filtered_skus = final_skus
         for product in ordered_products:
             prod_filter = []
@@ -254,6 +253,7 @@ def checkout(skus):
                 for sku in filtered_skus:
                     if sku != product.sku:
                         prod_filter.append(sku)
+
             filtered_skus = prod_filter
         
         amount += number_to_remove * offer.amount
