@@ -240,9 +240,10 @@ def checkout(skus):
         print(sku_counts)
         
         print([key for key in sku_counts if sku_counts[key]])
-        if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold:
+        print([value >= offer.threshold for value in sku_counts.values()])
+        if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold and not any([value >= offer.threshold for value in sku_counts.values()]):
             continue
-        
+        print("HERE")
         sku_count_filtered = {key: value for key, value in sku_counts.items() if value > 0}
         lowest_common_occurences = min(sku_count_filtered, key=sku_count_filtered.get)
         number_to_remove = sku_count_filtered.get(lowest_common_occurences)
@@ -290,5 +291,6 @@ def checkout(skus):
 
     return amount
     
+
 
 
