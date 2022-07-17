@@ -150,7 +150,7 @@ def checkout(skus):
         "H": {"price": 10, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=45),Offer(offer_type=OfferType.MULTI_BUY, threshold=10, amount=80)]},
         "I": {"price": 35, "offers": []},
         "J": {"price": 60, "offers": []},
-        "K": {"price": 70, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=150)]},
+        "K": {"price": 70, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=120)]},
         "L": {"price": 90, "offers": []},
         "M": {"price": 15, "offers": []},
         "N": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_products=[PRODUCT_M])]},
