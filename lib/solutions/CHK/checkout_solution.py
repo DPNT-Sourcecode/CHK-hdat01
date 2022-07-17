@@ -248,11 +248,15 @@ def checkout(skus):
         # ----- fix
         filtered_skus = []
         for i in range(0, sku_count_filtered.get(lowest_common_occurences)):
+            print(i)
             for product in ordered_products:
-
                 for sku in final_skus:
-                    if sku not in product_group:
+                    if product.sku != sku:
                         filtered_skus.append(sku)
+            # for product in ordered_products:
+            #     for sku in final_skus:
+            #         if sku not in product_group:
+            #             filtered_skus.append(sku)
         final_skus = filtered_skus
 
     print(final_skus)
@@ -284,4 +288,5 @@ def checkout(skus):
 
     return amount
     
+
 
