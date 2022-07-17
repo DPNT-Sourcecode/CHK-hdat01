@@ -22,6 +22,9 @@ PRODUCT_A_OFFER_AMOUNT = 130
 PRODUCT_B_OFFER_THRESHOLD = 2
 PRODUCT_B_OFFER_AMOUNT = 45
 
+
+
+
 def _find_delimiter(skus):
     # TODO: refactor
     found_delimiter = None
@@ -94,3 +97,4 @@ def checkout(skus):
 
     return amount
     
+
