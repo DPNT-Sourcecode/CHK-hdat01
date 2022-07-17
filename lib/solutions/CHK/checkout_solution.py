@@ -10,18 +10,7 @@ PRODUCT_A = "A"
 PRODUCT_B = "B"
 PRODUCT_C = "C"
 PRODUCT_D = "D"
-
-PRICING = {
-    PRODUCT_A: {"price": 50, "offer_threshold": 3, "offer_amount": 130},
-    PRODUCT_B: {"price": 30, "offer_threshold": 2, "offer_amount": 45},
-    PRODUCT_C: {"price": 20, "offer_threshold": None, "offer_amount": None},
-    PRODUCT_D: {"price": 15, "offer_threshold": None, "offer_amount": None},
-}
-
-PRODUCT_A_OFFER_THRESHOLD = 3
-PRODUCT_A_OFFER_AMOUNT = 130
-PRODUCT_B_OFFER_THRESHOLD = 2
-PRODUCT_B_OFFER_AMOUNT = 45
+PRODUCT_E = "E"
 
 
 class OfferType(Enum):
@@ -40,7 +29,7 @@ class Product:
 
 class Offer:
 
-    def __init__(self, offer_type, threshold, amount, target_product = None):
+    def __init__(self, offer_type, threshold, amount = None, target_product = None):
         self.offer_type = offer_type
         self.threshold = threshold
         self.amount = amount
@@ -55,9 +44,6 @@ class Offer:
         return self.offer_type == OfferType.FREE_PRODUCT
 
 
-
-
-
 def _find_delimiter(skus):
     # TODO: refactor
     found_delimiter = None
@@ -70,20 +56,27 @@ def _find_delimiter(skus):
 
 def _init_products():
     product_a_offers = [
-        Offer(OfferType.MULTI_BUY, 3, 130),
-        Offer(OfferType.MULTI_BUY, 5, 200),
+        Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130),
+        Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200),
     ]
     product_b_offers = [
-        Offer(OfferType.MULTI_BUY, 2, 45),
+        Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=45),
+    ]
+    product_e_offers = [
+        Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_B),
     ]
     product_a = Product(name=PRODUCT_A, price=50, offers=product_a_offers)
     product_b = Product(name=PRODUCT_B, price=30, offers=product_b_offers)
     product_c = Product(name=PRODUCT_C, price=20)
-    product_d = Product(name=PRODUCT_D, price=30, offers=product_b_offers)
-
+    product_d = Product(name=PRODUCT_D, price=15)
+    product_e = Product(name=PRODUCT_E, price=15, offers=product_e_offers)
 
     return [
-        product_a
+        product_a,
+        product_b,
+        product_c,
+        product_d,
+        product_e,
     ]
 
 
@@ -91,6 +84,9 @@ def _init_products():
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
+
+    # set up products
+    products = _init_products()
     
     # we don't currently know how SKUs will be split, or if there will be a delimiter at all
     
@@ -151,4 +147,5 @@ def checkout(skus):
 
     return amount
     
+
 
