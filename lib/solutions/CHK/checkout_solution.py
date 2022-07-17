@@ -68,21 +68,24 @@ def checkout(skus):
         
         offer_threshold = product_data.get("offer_threshold")
         product_count = split_skus.count(product)
+        product_price = product_data.get("price")
         
         if not offer_threshold:
-            amount += product_count * product_data.get("price")
+            amount += product_count * product_price
             continue
         
-        
+        offer_amount = product_data.get("offer_amount")
         matching_offer_count = product_count // offer_threshold
         if matching_offer_count == 0:
-            amount += product_count * product_data.get("price")
+            amount += product_count * product_price
             continue
-
-
         
-        
-
+        total_offer_amount = matching_offer_count * offer_amount
+        remaining_amount = (matching_offer_count % offer_amount) * product_price
+        print(matching_offer_count % offer_amount)
+        print(total_offer_amount)
+        print(remaining_amount)
+        amount += (total_offer_amount + remaining_amount)
 
     return amount
     
