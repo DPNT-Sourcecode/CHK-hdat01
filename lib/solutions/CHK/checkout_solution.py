@@ -163,6 +163,9 @@ def checkout(skus):
             continue
         
         num_to_remove, remainder = divmod(product_count, offer.threshold)
+
+        if num_to_remove == 0:
+            continue
         
         removed = 0
         filtered_skus = []
@@ -174,6 +177,7 @@ def checkout(skus):
                 continue
         final_skus = filtered_skus
 
+    print(final_skus)
     amount = 0
     for product_sku, product in products_store.products.items():
 
@@ -202,6 +206,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
