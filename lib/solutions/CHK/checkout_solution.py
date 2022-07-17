@@ -253,7 +253,6 @@ def checkout(skus):
             elif current_removal_count:
                 removal_counts[sku] -= 1
 
-        print(removal_counts.keys(), filtered)
         if len(removal_counts.keys()) == 1:
             amount += offer.amount
         else:
@@ -285,7 +284,6 @@ def checkout(skus):
             offers_expended = remainder == 0
 
         amount += remaining_product_count * product.price
-
 
     return amount
     
