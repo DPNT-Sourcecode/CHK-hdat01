@@ -236,13 +236,11 @@ def checkout(skus):
         # need to prioritise the highest value product
         ordered_products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
         
-        # matches = min([final_skus.count(sku) for sku in product_group])
-        # if not matches:
-        #     continue
-
-        
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
-
+        
+        if not all(sku_counts):
+            continue
+        print("HERE", sku_counts)
         filtered_skus = []
         lowest_common_occurences = min(sku_counts, key=sku_counts.get)
         for i in range(0, sku_counts.get(lowest_common_occurences)):
@@ -281,6 +279,3 @@ def checkout(skus):
 
     return amount
     
-
-
-
