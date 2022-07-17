@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List
+from typing import List, final
 
 
 INVALID_SKUS_RETURN_VALUE = -1
@@ -246,16 +246,22 @@ def checkout(skus):
         lowest_common_occurences = min(sku_count_filtered, key=sku_count_filtered.get)
         number_to_remove = sku_count_filtered.get(lowest_common_occurences)
 
-        filtered_skus = final_skus
-        for i in range(0, number_to_remove):
-            print(i)
-            prod_filtered = []
-            for product in ordered_products:
-                for sku in filtered_skus:
-                    print(product.sku, sku)
-                    if sku != product.sku:
-                        prod_filtered.append(sku)
-            filtered_skus = prod_filtered
+        removal_counts = {sku: number_to_remove for sku in sku_count_filtered.keys()}
+
+        
+        for key in removal_counts.keys():
+            pass
+
+        # filtered_skus = final_skus
+        # for i in range(0, number_to_remove):
+        #     print(i)
+        #     prod_filtered = []
+        #     for product in ordered_products:
+        #         for sku in filtered_skus:
+        #             print(product.sku, sku)
+        #             if sku != product.sku:
+        #                 prod_filtered.append(sku)
+        #     filtered_skus = prod_filtered
                         
         # for product in ordered_products:
         #     filtered_for_product = []
@@ -317,3 +323,4 @@ def checkout(skus):
 
     return amount
     
+
