@@ -1,6 +1,7 @@
 from concurrent.futures import process
 from enum import Enum
 from posixpath import split
+from re import L
 from typing import List
 
 
@@ -94,6 +95,14 @@ class ProductsStore:
     
     def get_all_product_skus(self) -> List[str]:
         return self.products.keys()
+    
+    def get_all_free_product_offers(self) -> List[Offer]:
+        offers = []
+        for product in self.products.values():
+            for offer in product.offers():
+                if offer.is_free_product:
+                    offers.append(product)
+        return offers
 
 
 
@@ -128,7 +137,6 @@ def checkout(skus):
 
     if contains_invalid_product:
         return INVALID_SKUS_RETURN_VALUE
-
 
     # NOTE: this works for small product lists, but if there were 10000000s of products this would need to change
     # could maybe look up the data we need first, then perform calculations
@@ -165,6 +173,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
