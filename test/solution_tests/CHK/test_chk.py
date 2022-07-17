@@ -21,3 +21,7 @@ class TestCHK():
     
     def test_lower_case_string_returns_as_invalid_value(self):
         assert checkout("a") == INVALID_SKUS_RETURN_VALUE
+    
+    def test_multiple_offers_applied_in_customer_preference(self):
+        assert checkout("AAAAAAAAAA") == 430
+
