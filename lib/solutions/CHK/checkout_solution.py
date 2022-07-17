@@ -24,7 +24,7 @@ PRODUCT_B_OFFER_THRESHOLD = 2
 PRODUCT_B_OFFER_AMOUNT = 45
 
 
-class OfferTypeEnum(Enum):
+class OfferType(Enum):
     MULTI_BUY = "MULTI_BUY"
     FREE_PRODUCT = "FREE_PRODUCT"
 
@@ -32,7 +32,8 @@ class OfferTypeEnum(Enum):
 
 class Product:
 
-    def __init__(self, price, offers):
+    def __init__(self, name, price, offers):
+        self.name = name
         self.price = price
         self.offers = offers
 
@@ -44,6 +45,17 @@ class Offer:
         self.threshold = threshold
         self.amount = amount
         self.target_product = target_product
+    
+    @property
+    def is_multibuy(self) -> bool:
+        return self.offer_type == OfferType.MULTI_BUY
+    
+    @property
+    def is_free_product(self) -> bool:
+        return self.offer_type == OfferType.FREE_PRODUCT
+
+
+
 
 
 def _find_delimiter(skus):
@@ -54,6 +66,15 @@ def _find_delimiter(skus):
             found_delimiter = delimiter
             break
     return found_delimiter
+
+
+def _init_products():
+    product_a_offers = [
+        Offer(OfferTypeEnum.)
+    ]
+    product_a = Product(name=PRODUCT_A, price=50, )
+
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
