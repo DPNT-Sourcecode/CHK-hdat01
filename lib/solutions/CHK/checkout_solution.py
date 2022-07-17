@@ -1,3 +1,4 @@
+from concurrent.futures import process
 from enum import Enum
 from posixpath import split
 from typing import List
@@ -142,7 +143,20 @@ def checkout(skus):
         offers = product.get_offers()
         
         product_count = split_skus.count(product_sku)
-        amount += product_count * product.price
+
+        offers = product.get_offers()
+        if not offers:
+            amount += product_count * product.price
+        
+        remaining_product_count = None
+        for offer in offers:
+            if offer.offer_type == OfferType.MULTI_BUY:
+                offer_threshold = offer.threshold
+                if product_count > offer_threshold:
+
+                pass
+            else:
+                pass
 
 
 
@@ -176,3 +190,4 @@ def checkout(skus):
 
     return amount
     
+
