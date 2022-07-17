@@ -226,9 +226,9 @@ def checkout(skus):
     # firstly apply any free product offers
     final_skus = split_skus
     for offer in products_store.get_all_free_product_offers():
-        print(offer._product.sku, offer.threshold, offer.offer_type.value)
+        print(offer._product_sku, offer.target_product, offer.threshold, offer.offer_type.value)
         
-        product_count = final_skus.count(offer._product.sku)
+        product_count = final_skus.count(offer._product_sku)
 
         if not product_count:
             continue
@@ -281,4 +281,5 @@ def checkout(skus):
 
     return amount
     
+
 
