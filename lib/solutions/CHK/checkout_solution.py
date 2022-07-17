@@ -1,11 +1,16 @@
 INVALID_SKUS_RETURN_VALUE = -1
 ACCEPTED_DELIMITERS = [",", "|"]
 
+PRODUCT_A = "A"
+PRODUCT_B = "B"
+PRODUCT_C = "C"
+PRODUCT_D = "D"
+
 PRICING = {
-    "A": 50,
-    "B": 30,
-    "C": 20,
-    "D": 15,
+    PRODUCT_A: 50,
+    PRODUCT_B: 30,
+    PRODUCT_C: 20,
+    PRODUCT_D: 15,
 }
 
 def _find_delimiter(skus):
@@ -45,6 +50,7 @@ def checkout(skus):
     if contains_invalid_product:
         return INVALID_SKUS_RETURN_VALUE
 
+    product_a_count = split_skus.count(PRODUCT_A)
 
     return sum([PRICING.get(sku) for sku in split_skus])
     

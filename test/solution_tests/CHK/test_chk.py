@@ -12,5 +12,8 @@ class TestCHK():
 
     def test_checkout_with_no_offers_applied_returns_expected_amount(self):
         assert checkout("A,B,C,D") == 115
+    
+    def test_product_a_offer_applied_correctly(self):
+        assert checkout("AAAAABCD") == 295
 
 
