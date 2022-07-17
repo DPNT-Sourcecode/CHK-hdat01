@@ -79,7 +79,7 @@ class ProductsStore:
         product_b = Product(sku=PRODUCT_B, price=30, offers=product_b_offers)
         product_c = Product(sku=PRODUCT_C, price=20)
         product_d = Product(sku=PRODUCT_D, price=15)
-        product_e = Product(sku=PRODUCT_E, price=15, offers=product_e_offers)
+        product_e = Product(sku=PRODUCT_E, price=40, offers=product_e_offers)
 
         products = [
             product_a,
@@ -141,7 +141,7 @@ def checkout(skus):
         
         offers = product.get_offers()
         
-        print(product_sku, offers)
+        product_count = split_skus.count(product_sku)
 
         if not offers:
             amount += product_count * product.price
@@ -152,7 +152,7 @@ def checkout(skus):
             
                 # get product data
                 offer_threshold = offer.threshold
-                product_count = split_skus.count(product)
+                
                 product_price = product.price
                 
                 # get number of times offer is applicable, if never over threshold, just add normally
@@ -169,6 +169,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
