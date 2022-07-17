@@ -142,9 +142,12 @@ def checkout(skus):
         offers = product.get_offers()
         
         product_count = split_skus.count(product_sku)
+        amount += product_count * product.price
 
-        if not offers or not any([product_count < offer.threshold for offer in product.get_offers()]):
-            amount += product_count * product.price
+
+
+        # if not offers or not any([product_count < offer.threshold for offer in product.get_offers()]):
+        #     amount += product_count * product.price
 
         # if no offers just add as normal (TODO: handle when 2E => free B)
         # if not offers:
