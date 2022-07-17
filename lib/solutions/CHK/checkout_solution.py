@@ -167,16 +167,13 @@ def checkout(skus):
         removed = 0
         filtered_skus = []
         for sku in final_skus:
-            if removed == num_to_remove:
-                break
             if sku != offer.target_product:
                 filtered_skus.append(sku)
-            else:
+            elif removed != num_to_remove:
                 removed += 1
                 continue
         final_skus = filtered_skus
 
-    print(final_skus)
     amount = 0
     for product_sku, product in products_store.products.items():
 
@@ -205,6 +202,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
