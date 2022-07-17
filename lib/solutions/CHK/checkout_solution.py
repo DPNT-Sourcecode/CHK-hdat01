@@ -13,6 +13,11 @@ PRICING = {
     PRODUCT_D: 15,
 }
 
+PRODUCT_A_OFFER_THRESHOLD = 3
+PRODUCT_A_OFFER_AMOUNT = 130
+PRODUCT_B_OFFER_THRESHOLD = 2
+PRODUCT_B_OFFER_AMOUNT = 45
+
 def _find_delimiter(skus):
     # TODO: refactor
     found_delimiter = None
@@ -51,6 +56,7 @@ def checkout(skus):
         return INVALID_SKUS_RETURN_VALUE
 
     product_a_count = split_skus.count(PRODUCT_A)
+    if product_a_count > 
 
     return sum([PRICING.get(sku) for sku in split_skus])
     
