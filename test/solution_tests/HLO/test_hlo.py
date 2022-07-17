@@ -1,6 +1,6 @@
 from lib.solutions.HLO.hello_solution import hello
 
-class TestSum():
+class TestHLO():
     def test_hello_returns_expected_string_with_name(self):
         assert hello("test") == "Hello, test!"
     
