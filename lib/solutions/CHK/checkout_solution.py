@@ -32,7 +32,7 @@ class OfferType(Enum):
 
 class Product:
 
-    def __init__(self, name, price, offers):
+    def __init__(self, name, price, offers = []):
         self.name = name
         self.price = price
         self.offers = offers
@@ -70,9 +70,21 @@ def _find_delimiter(skus):
 
 def _init_products():
     product_a_offers = [
-        Offer(OfferTypeEnum.)
+        Offer(OfferType.MULTI_BUY, 3, 130),
+        Offer(OfferType.MULTI_BUY, 5, 200),
     ]
-    product_a = Product(name=PRODUCT_A, price=50, )
+    product_b_offers = [
+        Offer(OfferType.MULTI_BUY, 2, 45),
+    ]
+    product_a = Product(name=PRODUCT_A, price=50, offers=product_a_offers)
+    product_b = Product(name=PRODUCT_B, price=30, offers=product_b_offers)
+    product_c = Product(name=PRODUCT_C, price=20)
+    product_d = Product(name=PRODUCT_D, price=30, offers=product_b_offers)
+
+
+    return [
+        product_a
+    ]
 
 
 
@@ -139,3 +151,4 @@ def checkout(skus):
 
     return amount
     
+
