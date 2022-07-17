@@ -248,7 +248,17 @@ def checkout(skus):
 
         filtered_skus = final_skus
         for product in ordered_products:
-            pass
+            filtered_for_product = []
+            num_removed = 0
+            while num_removed != number_to_remove:
+                print(num_removed, number_to_remove)
+                for sku in filtered_skus:
+                    if sku == product.sku:
+                        num_removed += 1
+                        continue
+                    filtered_for_product.append(sku)
+
+
             # prod_filter = []
             # num_removed = 0
             # while num_removed != number_to_remove:
@@ -297,6 +307,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
