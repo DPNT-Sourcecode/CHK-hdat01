@@ -233,9 +233,6 @@ def checkout(skus):
     for offer in products_store.group_buy_offers:
         product_group = offer.target_products
         
-        # need to prioritise the highest value product
-        ordered_products = sorted([products_store.products.get(sku) for sku in product_group], key=lambda p: p.price, reverse=True)
-        
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
 
         if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold and not any([value >= offer.threshold for value in sku_counts.values()]):
@@ -291,6 +288,3 @@ def checkout(skus):
 
     return amount
     
-
-
-
