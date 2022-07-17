@@ -92,7 +92,7 @@ class ProductsStore:
         product_c = Product(sku=PRODUCT_C, price=20)
         product_d = Product(sku=PRODUCT_D, price=15)
         product_e = Product(sku=PRODUCT_E, price=40, offers=product_e_offers)
-        product_f = Product(sku=PRODUCT_E, price=40, offers=product_f_offers)
+        product_f = Product(sku=PRODUCT_F, price=10, offers=product_f_offers)
 
         products = [
             product_a,
@@ -215,3 +215,4 @@ def checkout(skus):
 
     return amount
     
+

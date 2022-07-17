@@ -8,7 +8,7 @@ class TestCHK():
         assert checkout("") == EMPTY_SKUS_RETURN_VALUE
 
     def test_checkout_with_invalid_product_returns_expected_value(self):
-        assert checkout("A,B,D,F") == INVALID_SKUS_RETURN_VALUE
+        assert checkout("A,B,D,Z") == INVALID_SKUS_RETURN_VALUE
 
     def test_checkout_with_no_offers_applied_returns_expected_amount(self):
         assert checkout("A,B,C,D,E") == 155
@@ -36,4 +36,11 @@ class TestCHK():
     
     def test_free_product_offer_applied_successfully_with_other_offers_multiple_instances_of_offer_target(self):
         assert checkout("CCADDEEBBA") == 280
+    
+    def test_buy_two_get_one_free_applied_successfully(self):
+        assert checkout("CCAADDFFF") == 190
+    
+    def test_buy_two_get_one_free_not_applied_if_only_two_in_basket(self):
+        assert checkout("FF") == 20
+
 
