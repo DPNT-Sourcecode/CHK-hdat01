@@ -195,5 +195,3 @@ def checkout(skus):
 
     return amount
     
-
-
