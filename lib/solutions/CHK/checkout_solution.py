@@ -30,6 +30,8 @@ class Offer:
         self.threshold = threshold
         self.amount = amount
         self.target_product = target_product
+
+        self._product = None
     
     @property
     def is_multibuy(self) -> bool:
@@ -45,6 +47,8 @@ class Product:
     def __init__(self, sku, price, offers = []):
         self.sku = sku
         self.price = price
+        for offer in offers:
+            offer._product = self
         self.offers = offers
     
     def get_offers(self) -> List[Offer]:
@@ -140,6 +144,13 @@ def checkout(skus):
 
     # NOTE: this works for small product lists, but if there were 10000000s of products this would need to change
     # could maybe look up the data we need first, then perform calculations
+
+    # firstly apply any free product offers
+
+    for offer in products_store.get_all_free_product_offers():
+        
+        pass
+
     amount = 0
     for product_sku, product in products_store.products.items():
 
@@ -173,6 +184,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
