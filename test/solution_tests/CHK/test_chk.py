@@ -51,4 +51,3 @@ class TestCHK():
 
     def test_group_buy_applied_successfully(self):
         assert checkout("STZVV") == 135
-

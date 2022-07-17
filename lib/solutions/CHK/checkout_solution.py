@@ -1,7 +1,4 @@
-from concurrent.futures import process
 from enum import Enum
-from posixpath import split
-from re import L
 from typing import List
 
 
@@ -96,7 +93,7 @@ def _find_delimiter(skus):
 
 class ProductsStore:
 
-    def __init__(self, product_data: dict):
+    def __init__(self, product_data: dict, group_buy_offers = []):
         products = []
         for sku, data in product_data.items():
             products.append(
@@ -104,6 +101,7 @@ class ProductsStore:
             )
 
         self.products = {product.sku: product for product in products}
+        self.group_buy_offers = group_buy_offers
 
     
     def get_all_product_skus(self) -> List[str]:
@@ -131,12 +129,14 @@ class ProductsStore:
 def checkout(skus):
 
     DEFAULT_GROUP_BUY_TARGETS = [
-        PRODUCT_S,
-        PRODUCT_T,
-        PRODUCT_X,
-        PRODUCT_Y,
-        PRODUCT_Z,
+        PRODUCT_S
+        PRODUCT_T
+        PRODUCT_X
+        PRODUCT_Y
+        PRODUCT_Z
     ]
+
+    group_buy_offer = Offer(offer_type=OfferType.GROUP_BUY, threshold=3, amount=45, target_products=DEFAULT_GROUP_BUY_TARGETS)
 
 
     DATA_TO_IMPORT = {
@@ -158,7 +158,7 @@ def checkout(skus):
         "P": {"price": 50, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200)]},
         "Q": {"price": 30, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=80)]},
         "R": {"price": 50, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_products=[PRODUCT_Q])]},
-        "S": {"price": 20, "offers": [Offer(offer_type=OfferType.GROUP_BUY, threshold=3, amount=45, target_products=[])]},
+        "S": {"price": 20, "offers": []},
         "T": {"price": 20, "offers": []},
         "U": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_products=[PRODUCT_U])]},
         "V": {"price": 50, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=90),Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130)]},
@@ -169,7 +169,7 @@ def checkout(skus):
     }
 
     # set up products
-    products_store = ProductsStore(DATA_TO_IMPORT)
+    products_store = ProductsStore(DATA_TO_IMPORT, group_buy_offers=group_buy_offer)
     
     # we don't currently know how SKUs will be split, or if there will be a delimiter at all
     
@@ -254,8 +254,3 @@ def checkout(skus):
 
     return amount
     
-
-
-
-
-
