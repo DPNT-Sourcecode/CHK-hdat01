@@ -51,3 +51,6 @@ class TestCHK():
 
     def test_group_buy_applied_successfully(self):
         assert checkout("STZVV") == 135
+    
+    def test_double_group_buy_applied_successfully(self):
+        assert checkout("STZSTZZVV") == 135

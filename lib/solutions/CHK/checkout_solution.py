@@ -225,8 +225,15 @@ def checkout(skus):
                 filtered_skus.append(sku)
 
         final_skus = filtered_skus
-
+    
     amount = 0
+    
+    # secondly apply group buy offers
+    for offer in products_store.group_buy_offers:
+        product_group = offer.target_products
+
+
+    # lastly apply multibuy offers
     for product_sku, product in products_store.products.items():
 
         # move onto next product if not present
