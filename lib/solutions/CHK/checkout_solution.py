@@ -15,13 +15,31 @@ PRODUCT_C = "C"
 PRODUCT_D = "D"
 PRODUCT_E = "E"
 PRODUCT_F = "F"
+PRODUCT_G = "G"
+PRODUCT_H = "H"
+PRODUCT_I = "I"
+PRODUCT_J = "J"
+PRODUCT_K = "K"
+PRODUCT_L = "L"
+PRODUCT_M = "M"
+PRODUCT_N = "N"
+PRODUCT_O = "O"
+PRODUCT_P = "P"
+PRODUCT_Q = "Q"
+PRODUCT_R = "R"
+PRODUCT_S = "S"
+PRODUCT_T = "T"
+PRODUCT_U = "U"
+PRODUCT_V = "V"
+PRODUCT_W = "W"
+PRODUCT_X = "X"
+PRODUCT_Y = "Y"
+PRODUCT_Z = "Z"
 
 
 class OfferType(Enum):
     MULTI_BUY = "MULTI_BUY"
     FREE_PRODUCT = "FREE_PRODUCT"
-
-
 
 
 class Offer:
@@ -85,21 +103,29 @@ DATA_TO_IMPORT = {
     "E": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_B)]},
     "F": {"price": 10, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_F)]},
     "G": {"price": 20, "offers": []},
-    "H": {"price": 10, "offers": []},
+    "H": {"price": 10, "offers": [
+            Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=45),
+            Offer(offer_type=OfferType.MULTI_BUY, threshold=10, amount=80),
+        ]
+    },
     "I": {"price": 35, "offers": []},
     "J": {"price": 60, "offers": []},
-    "K": {"price": 80, "offers": []},
+    "K": {"price": 80, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=150)]},
     "L": {"price": 90, "offers": []},
     "M": {"price": 15, "offers": []},
-    "N": {"price": 40, "offers": []},
+    "N": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_product=PRODUCT_M)]},
     "O": {"price": 10, "offers": []},
-    "P": {"price": 50, "offers": []},
-    "Q": {"price": 30, "offers": []},
-    "R": {"price": 50, "offers": []},
+    "P": {"price": 50, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200)]},
+    "Q": {"price": 30, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=80)]},
+    "R": {"price": 50, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_product=PRODUCT_Q)]},
     "S": {"price": 30, "offers": []},
     "T": {"price": 20, "offers": []},
-    "U": {"price": 40, "offers": []},
-    "V": {"price": 50, "offers": []},
+    "U": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_product=PRODUCT_U)]},
+    "V": {"price": 50, "offers": [
+            Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=90),
+            Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130),
+        ]
+    },
     "W": {"price": 20, "offers": []},
     "X": {"price": 90, "offers": []},
     "Y": {"price": 10, "offers": []},
