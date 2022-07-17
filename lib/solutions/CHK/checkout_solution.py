@@ -103,9 +103,9 @@ class ProductsStore:
     def get_all_free_product_offers(self) -> List[Offer]:
         offers = []
         for product in self.products.values():
-            for offer in product.offers():
+            for offer in product.get_offers():
                 if offer.is_free_product:
-                    offers.append(product)
+                    offers.append(offer)
         return offers
 
 
@@ -147,7 +147,7 @@ def checkout(skus):
 
     # firstly apply any free product offers
 
-    final_skus = []
+    final_skus = split_skus
     for offer in products_store.get_all_free_product_offers():
         product_count = split_skus.count(offer._product)
         if not product_count:
@@ -165,17 +165,15 @@ def checkout(skus):
             else:
                 removed += 1
                 continue
+        final_skus = filtered_skus
 
     amount = 0
     for product_sku, product in products_store.products.items():
 
         # move onto next product if not present
-        if product_sku not in split_skus:
+        product_count = final_skus.count(product_sku)
+        if not product_count:
             continue
-        
-        offers = product.get_offers()
-        
-        product_count = split_skus.count(product_sku)
 
         offers = product.get_offers()
         if not offers:
@@ -199,3 +197,4 @@ def checkout(skus):
 
     return amount
     
+
