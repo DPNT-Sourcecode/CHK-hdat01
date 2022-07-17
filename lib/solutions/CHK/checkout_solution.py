@@ -239,7 +239,8 @@ def checkout(skus):
         
         sku_counts = {sku: final_skus.count(sku) for sku in product_group}
         
-        if not all(sku_counts.values()):
+        print(sku_counts)
+        if len([key for key in sku_counts if sku_counts[key] > 0]) < offer.threshold:
             continue
 
         filtered_skus = []
