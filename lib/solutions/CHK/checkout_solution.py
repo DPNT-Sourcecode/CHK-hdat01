@@ -79,11 +79,11 @@ DATA_TO_IMPORT = {
             Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200),
         ]
     },
-    "B": {"price": 30, "offers": []},
+    "B": {"price": 30, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=45)]},
     "C": {"price": 20, "offers": []},
     "D": {"price": 15, "offers": []},
-    "E": {"price": 40, "offers": []},
-    "F": {"price": 10, "offers": []},
+    "E": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_B)]},
+    "F": {"price": 10, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_F)]},
     "G": {"price": 20, "offers": []},
     "H": {"price": 10, "offers": []},
     "I": {"price": 35, "offers": []},
@@ -251,5 +251,6 @@ def checkout(skus):
 
     return amount
     
+
 
 
