@@ -49,3 +49,6 @@ class TestCHK():
     def test_multiple_free_items(self):
         assert checkout("FFFUUUU") == 140
 
+    def test_group_buy_applied_successfully(self):
+        assert checkout("STZVV") == 135
+

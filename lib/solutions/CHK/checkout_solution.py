@@ -40,6 +40,7 @@ PRODUCT_Z = "Z"
 class OfferType(Enum):
     MULTI_BUY = "MULTI_BUY"
     FREE_PRODUCT = "FREE_PRODUCT"
+    GROUP_BUY = "GROUP_BUY"
 
 
 class Offer:
@@ -61,7 +62,7 @@ class Offer:
         return self.offer_type == OfferType.FREE_PRODUCT
 
     def set_product(self, product_sku):
-        if product_sku == self.target_product:
+        if product_sku == self.target_product and self.is_free_product:
             self.threshold += 1
         self._product_sku = product_sku
 
