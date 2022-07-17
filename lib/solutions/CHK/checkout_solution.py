@@ -63,28 +63,31 @@ def checkout(skus):
     # could maybe look up the data we need first, then perform calculations
     amount = 0
     for product, product_data in PRICING.items():
+
+        # move onto next product if not present
         if product not in split_skus:
             continue
         
+        # get product data
         offer_threshold = product_data.get("offer_threshold")
         product_count = split_skus.count(product)
         product_price = product_data.get("price")
         
+        # if no offer, just add normally
         if not offer_threshold:
             amount += product_count * product_price
             continue
         
-        offer_amount = product_data.get("offer_amount")
+        # get number of times offer is applicable, if never over threshold, just add normally
         matching_offer_count = product_count // offer_threshold
         if matching_offer_count == 0:
             amount += product_count * product_price
             continue
         
+        # calculate total matching offers and add remaining amounts normally
+        offer_amount = product_data.get("offer_amount")
         total_offer_amount = matching_offer_count * offer_amount
         remaining_amount = (product_count % offer_threshold) * product_price
-        print(matching_offer_count % offer_amount)
-        print(total_offer_amount)
-        print(remaining_amount)
         amount += (total_offer_amount + remaining_amount)
 
     return amount
