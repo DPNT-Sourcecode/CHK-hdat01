@@ -231,6 +231,13 @@ def checkout(skus):
     # secondly apply group buy offers
     for offer in products_store.group_buy_offers:
         product_group = offer.target_products
+        
+        counts = {sku: final_skus.count(sku) for sku in product_group}
+        if not all(counts.values()):
+            continue
+        
+
+
 
 
     # lastly apply multibuy offers
