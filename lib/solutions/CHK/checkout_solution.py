@@ -22,8 +22,8 @@ class OfferType(Enum):
 
 class Product:
 
-    def __init__(self, name, price, offers = []):
-        self.name = name
+    def __init__(self, sku, price, offers = []):
+        self.sku = sku
         self.price = price
         self.offers = offers
 
@@ -68,11 +68,11 @@ class ProductsStore:
         product_e_offers = [
             Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_B),
         ]
-        product_a = Product(name=PRODUCT_A, price=50, offers=product_a_offers)
-        product_b = Product(name=PRODUCT_B, price=30, offers=product_b_offers)
-        product_c = Product(name=PRODUCT_C, price=20)
-        product_d = Product(name=PRODUCT_D, price=15)
-        product_e = Product(name=PRODUCT_E, price=15, offers=product_e_offers)
+        product_a = Product(sku=PRODUCT_A, price=50, offers=product_a_offers)
+        product_b = Product(sku=PRODUCT_B, price=30, offers=product_b_offers)
+        product_c = Product(sku=PRODUCT_C, price=20)
+        product_d = Product(sku=PRODUCT_D, price=15)
+        product_e = Product(sku=PRODUCT_E, price=15, offers=product_e_offers)
 
         products = [
             product_a,
@@ -81,10 +81,10 @@ class ProductsStore:
             product_d,
             product_e,
         ]
-        self.products = {product.name: product for product in products}
+        self.products = {product.sku: product for product in products}
 
     
-    def get_all_product_names(self) -> List[str]:
+    def get_all_product_skus(self) -> List[str]:
         return self.products.keys()
 
 
@@ -125,12 +125,13 @@ def checkout(skus):
     # NOTE: this works for small product lists, but if there were 10000000s of products this would need to change
     # could maybe look up the data we need first, then perform calculations
     amount = 0
-    for product, product_data in products_store.products:
+    for product_sku, product in products_store.products:
 
         # move onto next product if not present
-        if product not in split_skus:
+        if product_sku not in split_skus:
             continue
         
+        for offer in product
         # get product data
         offer_threshold = product_data.get("offer_threshold")
         product_count = split_skus.count(product)
@@ -155,6 +156,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
