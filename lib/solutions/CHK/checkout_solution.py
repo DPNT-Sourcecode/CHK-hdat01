@@ -131,27 +131,17 @@ def checkout(skus):
 
 
     DATA_TO_IMPORT = {
-        "A": {
-            "price": 50,
-            "offers": [
-                Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130),
-                Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200),
-            ]
-        },
+        "A": {"price": 50, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130),Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200),]},
         "B": {"price": 30, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=45)]},
         "C": {"price": 20, "offers": []},
         "D": {"price": 15, "offers": []},
         "E": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_B)]},
         "F": {"price": 10, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_F)]},
         "G": {"price": 20, "offers": []},
-        "H": {"price": 10, "offers": [
-                Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=45),
-                Offer(offer_type=OfferType.MULTI_BUY, threshold=10, amount=80),
-            ]
-        },
+        "H": {"price": 10, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=45),Offer(offer_type=OfferType.MULTI_BUY, threshold=10, amount=80)]},
         "I": {"price": 35, "offers": []},
         "J": {"price": 60, "offers": []},
-        "K": {"price": 80, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=150)]},
+        "K": {"price": 70, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=150)]},
         "L": {"price": 90, "offers": []},
         "M": {"price": 15, "offers": []},
         "N": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_product=PRODUCT_M)]},
@@ -159,18 +149,14 @@ def checkout(skus):
         "P": {"price": 50, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200)]},
         "Q": {"price": 30, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=80)]},
         "R": {"price": 50, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_product=PRODUCT_Q)]},
-        "S": {"price": 30, "offers": []},
+        "S": {"price": 20, "offers": []},
         "T": {"price": 20, "offers": []},
         "U": {"price": 40, "offers": [Offer(offer_type=OfferType.FREE_PRODUCT, threshold=3, target_product=PRODUCT_U)]},
-        "V": {"price": 50, "offers": [
-                Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=90),
-                Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130),
-            ]
-        },
+        "V": {"price": 50, "offers": [Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=90),Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130)]},
         "W": {"price": 20, "offers": []},
-        "X": {"price": 90, "offers": []},
-        "Y": {"price": 10, "offers": []},
-        "Z": {"price": 50, "offers": []},
+        "X": {"price": 17, "offers": []},
+        "Y": {"price": 20, "offers": []},
+        "Z": {"price": 21, "offers": []},
     }
 
     # set up products
@@ -259,6 +245,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
