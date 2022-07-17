@@ -135,35 +135,14 @@ DATA_TO_IMPORT = {
 
 class ProductsStore:
 
-    def __init__(self):
-        product_a_offers = [
-            Offer(offer_type=OfferType.MULTI_BUY, threshold=3, amount=130),
-            Offer(offer_type=OfferType.MULTI_BUY, threshold=5, amount=200),
-        ]
-        product_b_offers = [
-            Offer(offer_type=OfferType.MULTI_BUY, threshold=2, amount=45),
-        ]
-        product_e_offers = [
-            Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_B),
-        ]
-        product_f_offers = [
-            Offer(offer_type=OfferType.FREE_PRODUCT, threshold=2, target_product=PRODUCT_F),
-        ]
-        product_a = Product(sku=PRODUCT_A, price=50, offers=product_a_offers)
-        product_b = Product(sku=PRODUCT_B, price=30, offers=product_b_offers)
-        product_c = Product(sku=PRODUCT_C, price=20)
-        product_d = Product(sku=PRODUCT_D, price=15)
-        product_e = Product(sku=PRODUCT_E, price=40, offers=product_e_offers)
-        product_f = Product(sku=PRODUCT_F, price=10, offers=product_f_offers)
+    def __init__(self, product_data: dict):
 
-        products = [
-            product_a,
-            product_b,
-            product_c,
-            product_d,
-            product_e,
-            product_f,
-        ]
+        products = []
+        for sku, data in product_data.items():
+            products.append(
+                Product(sku, data.get("price"), offers=data.get("offers"))
+            )
+
         self.products = {product.sku: product for product in products}
 
     
@@ -192,7 +171,7 @@ class ProductsStore:
 def checkout(skus):
 
     # set up products
-    products_store = ProductsStore()
+    products_store = ProductsStore(DATA_TO_IMPORT)
     
     # we don't currently know how SKUs will be split, or if there will be a delimiter at all
     
@@ -277,6 +256,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
