@@ -157,7 +157,8 @@ def checkout(skus):
     final_skus = split_skus
     for offer in products_store.get_all_free_product_offers():
         
-        product_count = final_skus.count(offer._product)
+        product_count = final_skus.count(offer._product.sku)
+
         if not product_count:
             continue
         
@@ -204,6 +205,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 

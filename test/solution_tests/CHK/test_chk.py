@@ -32,4 +32,8 @@ class TestCHK():
         assert checkout("EEB") == 80
     
     def test_free_product_offer_applied_successfully_with_other_offers(self):
+        print('---')
+        result = checkout("EEBAAAAAAAAA")
+        print("--")
         assert checkout("EEBAAAAAAAAA") == 420
+
