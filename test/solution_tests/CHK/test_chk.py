@@ -14,7 +14,7 @@ class TestCHK():
         assert checkout("A,B,C,D") == 115
     
     def test_product_a_offer_applied_correctly(self):
-        assert checkout("AAAAABCD") == 295
+        assert checkout("AAAAABCD") == 265
     
     def test_procut_b_offer_applied_correctly(self):
         assert checkout("AAAABBBCD") == 290
@@ -24,3 +24,4 @@ class TestCHK():
     
     def test_multiple_offers_applied_in_customer_preference(self):
         assert checkout("AAAAAAAAAA") == 430
+

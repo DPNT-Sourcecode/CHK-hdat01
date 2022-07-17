@@ -148,15 +148,17 @@ def checkout(skus):
         if not offers:
             amount += product_count * product.price
         
-        remaining_product_count = 0
+        remaining_product_count = None
         for offer in offers:
+            print(offer.threshold)
             if offer.offer_type == OfferType.MULTI_BUY:
-                current_count = remaining_product_count if remaining_product_count > 0 else product_count
+                current_count = remaining_product_count if remaining_product_count else product_count
                 match_count, remainder = divmod(current_count, offer.threshold)
                 amount += match_count * offer.amount
                 remaining_product_count = remainder
-        
-        amount += remaining_product_count * product.price
+
+        if remaining_product_count:
+            amount += remaining_product_count * product.price
 
 
 
@@ -192,3 +194,4 @@ def checkout(skus):
 
     return amount
     
+
