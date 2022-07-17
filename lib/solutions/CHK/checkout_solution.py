@@ -20,13 +20,6 @@ class OfferType(Enum):
 
 
 
-class Product:
-
-    def __init__(self, sku, price, offers = []):
-        self.sku = sku
-        self.price = price
-        self.offers = offers
-
 
 class Offer:
 
@@ -43,6 +36,20 @@ class Offer:
     @property
     def is_free_product(self) -> bool:
         return self.offer_type == OfferType.FREE_PRODUCT
+
+
+class Product:
+
+    def __init__(self, sku, price, offers = []):
+        self.sku = sku
+        self.price = price
+        self.offers = offers
+    
+    def get_offers(self) -> List[Offer]:
+        """
+        Get offers ordered by the max discount
+        """
+        return sorted(self.offers, key=lambda t: t.amount, reverse=True)
 
 
 def _find_delimiter(skus):
@@ -131,12 +138,14 @@ def checkout(skus):
         if product_sku not in split_skus:
             continue
         
-        for offer in product
-        # get product data
-        offer_threshold = product_data.get("offer_threshold")
-        product_count = split_skus.count(product)
-        product_price = product_data.get("price")
-        
+        for offer in product.get_offers():
+            if offer.offer_type == OfferType.MULTI_BUY:
+            
+                # get product data
+                offer_threshold = offer.threshold
+                product_count = split_skus.count(product)
+                product_price = product.price
+                
         # if no offer, just add normally
         if not offer_threshold:
             amount += product_count * product_price
@@ -156,6 +165,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
