@@ -67,6 +67,8 @@ class Product:
         self.sku = sku
         self.price = price
         for offer in offers:
+            if not offer.is_free_product:
+                continue
             offer._product = self
             if offer.target_product == self.sku:
                 offer.threshold += 1

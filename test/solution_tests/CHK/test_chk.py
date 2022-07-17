@@ -47,6 +47,4 @@ class TestCHK():
         assert checkout("FFAAAA") == 200
 
     def test_multiple_free_items(self):
-        print('----')
-        checkout("FFFUUUU")
-        print('----')
+        assert == checkout("FFFUUUU")
