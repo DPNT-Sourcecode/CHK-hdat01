@@ -1,3 +1,4 @@
+from enum import Enum
 from posixpath import split
 
 
@@ -23,6 +24,26 @@ PRODUCT_B_OFFER_THRESHOLD = 2
 PRODUCT_B_OFFER_AMOUNT = 45
 
 
+class OfferTypeEnum(Enum):
+    MULTI_BUY = "MULTI_BUY"
+    FREE_PRODUCT = "FREE_PRODUCT"
+
+
+
+class Product:
+
+    def __init__(self, price, offers):
+        self.price = price
+        self.offers = offers
+
+
+class Offer:
+
+    def __init__(self, offer_type, threshold, amount, target_product = None):
+        self.offer_type = offer_type
+        self.threshold = threshold
+        self.amount = amount
+        self.target_product = target_product
 
 
 def _find_delimiter(skus):
@@ -97,4 +118,3 @@ def checkout(skus):
 
     return amount
     
-
