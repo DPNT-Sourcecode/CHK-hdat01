@@ -243,8 +243,8 @@ def checkout(skus):
         number_to_remove = sku_count_filtered.get(lowest_common_occurences)
 
         removal_counts = {sku: number_to_remove for sku in sku_count_filtered.keys()}
-        print(removal_counts)
-
+        
+        print(number_to_remove, number_to_remove/offer.threshold)
         filtered = []
         for sku in final_skus:
             current_removal_count = removal_counts.get(sku)
