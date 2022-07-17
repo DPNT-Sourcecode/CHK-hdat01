@@ -7,10 +7,10 @@ PRODUCT_C = "C"
 PRODUCT_D = "D"
 
 PRICING = {
-    PRODUCT_A: 50,
-    PRODUCT_B: 30,
-    PRODUCT_C: 20,
-    PRODUCT_D: 15,
+    PRODUCT_A: {"price": 50, "offer_threshold": 3, "offer_amount": 130},
+    PRODUCT_B: {"price": 30, "offer_threshold": 2, "offer_amount": 45},
+    PRODUCT_C: {"price": 20, "offer_threshold": None, "offer_amount": None},
+    PRODUCT_D: {"price": 15, "offer_threshold": None, "offer_amount": None},
 }
 
 PRODUCT_A_OFFER_THRESHOLD = 3
@@ -55,8 +55,9 @@ def checkout(skus):
     if contains_invalid_product:
         return INVALID_SKUS_RETURN_VALUE
 
-    product_a_count = split_skus.count(PRODUCT_A)
-    if product_a_count > 
+    # product_a_count = split_skus.count(PRODUCT_A)
+    # if product_a_count >= PRODUCT_A_OFFER_THRESHOLD:
+
 
     return sum([PRICING.get(sku) for sku in split_skus])
     
