@@ -144,6 +144,7 @@ def checkout(skus):
         product_count = split_skus.count(product_sku)
 
         if not offers:
+            print(product_sku, product.price, product_count, product_count * product.price)
             amount += product_count * product.price
             continue
 
@@ -152,7 +153,6 @@ def checkout(skus):
             
                 # get product data
                 offer_threshold = offer.threshold
-                
                 product_price = product.price
                 
                 # get number of times offer is applicable, if never over threshold, just add normally
@@ -160,7 +160,7 @@ def checkout(skus):
                 if matching_offer_count == 0:
                     amount += product_count * product_price
                     continue
-                
+
                 # calculate total matching offers and add remaining amounts normally
                 offer_amount = offer.amount
                 total_offer_amount = matching_offer_count * offer_amount
@@ -169,6 +169,7 @@ def checkout(skus):
 
     return amount
     
+
 
 
 
