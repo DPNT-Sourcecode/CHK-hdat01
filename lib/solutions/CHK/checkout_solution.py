@@ -32,17 +32,22 @@ def checkout(skus):
         return INVALID_SKUS_RETURN_VALUE
     
     # convert to all uppercase - this may need to change if we want to ignore lowercase chars
-    skus = skus.upper()
+    # also remove all whitespace
+    skus = skus.upper().strip().replace(" ", "")
     
     # find first delimiter, then split on that
     found_delimiter = _find_delimiter(skus)
     split_skus = skus.split(found_delimiter) if found_delimiter else list(skus)
     
     # treat any invalid products as an invalid string - may need to change later
-    contains_invalid_product = any([sku for sku in skus if sku not in PRICING.keys()])
+    contains_invalid_product = any([sku for sku in split_skus if sku not in PRICING.keys()])
 
     if contains_invalid_product:
         return INVALID_SKUS_RETURN_VALUE
+
+
+    return sum([PRICING.get(sku) for sku in split_skus])
+    
 
 
 

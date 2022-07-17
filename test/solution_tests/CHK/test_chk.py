@@ -10,4 +10,7 @@ class TestCHK():
     def test_checkout_with_invalid_product_returns_expected_value(self):
         assert checkout("A,B,D,F") == INVALID_SKUS_RETURN_VALUE
 
+    def test_checkout_with_no_offers_applied_returns_expected_amount(self):
+        assert checkout("A,B,C,D") == 115
+
 
