@@ -1,11 +1,11 @@
-from lib.solutions.CHK.checkout_solution import checkout, INVALID_SKUS_RETURN_VALUE
+from lib.solutions.CHK.checkout_solution import checkout, EMPTY_SKUS_RETURN_VALUE, INVALID_SKUS_RETURN_VALUE
 
 class TestCHK():
     def test_checkout_with_invalid_type_returns_expected_value(self):
         assert checkout(12345) == INVALID_SKUS_RETURN_VALUE
 
     def test_checkout_with_empty_string_returns_expected_value(self):
-        assert checkout("") == INVALID_SKUS_RETURN_VALUE
+        assert checkout("") == EMPTY_SKUS_RETURN_VALUE
 
     def test_checkout_with_invalid_product_returns_expected_value(self):
         assert checkout("A,B,D,F") == INVALID_SKUS_RETURN_VALUE
@@ -18,3 +18,9 @@ class TestCHK():
     
     def test_procut_b_offer_applied_correctly(self):
         assert checkout("AAAABBBCD") == 290
+    
+    def test_lower_case_string_returns_as_invalid_value(self):
+        assert checkout("a") == INVALID_SKUS_RETURN_VALUE
+    
+    def test_mix_of_cases_summed_correctly(self):
+        assert checkout("AaAbCD") == 195

@@ -2,6 +2,7 @@ from posixpath import split
 
 
 INVALID_SKUS_RETURN_VALUE = -1
+EMPTY_SKUS_RETURN_VALUE = 0
 ACCEPTED_DELIMITERS = [",", "|"]
 
 PRODUCT_A = "A"
@@ -41,12 +42,13 @@ def checkout(skus):
     if not isinstance(skus, str):
         return INVALID_SKUS_RETURN_VALUE
     
+    # treat empty sku string as non-invalid
     if len(skus) == 0:
         return INVALID_SKUS_RETURN_VALUE
     
     # convert to all uppercase - this may need to change if we want to ignore lowercase chars
     # also remove all whitespace
-    skus = skus.upper().strip().replace(" ", "")
+    skus = skus.strip().replace(" ", "")
     
     # find first delimiter, then split on that
     found_delimiter = _find_delimiter(skus)
