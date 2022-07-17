@@ -247,16 +247,24 @@ def checkout(skus):
         number_to_remove = sku_count_filtered.get(lowest_common_occurences)
 
         filtered_skus = final_skus
-        for product in ordered_products:
-            filtered_for_product = []
-            num_removed = 0
-            while num_removed != number_to_remove:
-                print(num_removed, number_to_remove)
+        for i in range(0, number_to_remove):
+            prod_filtered = []
+            for product in ordered_products:
                 for sku in filtered_skus:
-                    if sku == product.sku:
-                        num_removed += 1
-                        continue
-                    filtered_for_product.append(sku)
+                    if sku != product.sku:
+                        prod_filtered.append(sku)
+            filtered_skus = prod_filtered
+                        
+        # for product in ordered_products:
+        #     filtered_for_product = []
+        #     num_removed = 0
+        #     while num_removed != number_to_remove:
+        #         print(num_removed, number_to_remove)
+        #         for sku in filtered_skus:
+        #             if sku == product.sku:
+        #                 num_removed += 1
+        #                 continue
+        #             filtered_for_product.append(sku)
 
 
             # prod_filter = []
@@ -272,7 +280,7 @@ def checkout(skus):
             #         if sku != product.sku:
             #             prod_filter.append(sku)
 
-            filtered_skus = prod_filter
+        # filtered_skus = prod_filtered
         
         amount += number_to_remove * offer.amount
 
@@ -307,9 +315,3 @@ def checkout(skus):
 
     return amount
     
-
-
-
-
-
-
